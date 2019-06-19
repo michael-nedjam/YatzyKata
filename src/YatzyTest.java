@@ -4,104 +4,103 @@ import static org.junit.Assert.*;
 public class YatzyTest {
 
     @Test
-    public void chance_scores_sum_of_all_dice() {
-        assertEquals(14, Yatzy.chance(new DiceRoll(1,1,3,3,6)));
-        assertEquals(21, Yatzy.chance(new DiceRoll(4,5,5,6,1)));
+    public void chance_scores_sum_of_all_dice() throws Exception {
+        assertEquals(14, new YatzyRoll(1,1,3,3,6).PlaceOn(Category.CHANCE).getScore());
+        assertEquals(21, new YatzyRoll(4,5,5,6,1).PlaceOn(Category.CHANCE).getScore());
     }
 
-    @Test public void yatzy_scores_50() {
-        assertEquals(50, Yatzy.yatzy(new DiceRoll(1,1,1,1,1)));
-        assertEquals(0, Yatzy.yatzy(new DiceRoll(1,1,1,2,1)));
+    @Test public void yatzy_scores_50() throws Exception {
+        assertEquals(50, new YatzyRoll(1,1,1,1,1).PlaceOn(Category.YATZY).getScore());
+        assertEquals(0, new YatzyRoll(1,1,1,2,1).PlaceOn(Category.YATZY).getScore());
     }
 
-    @Test public void ones() {
-        assertEquals(2, Yatzy.ones(new DiceRoll(1,1,2,4,4)));
-        assertEquals(1, Yatzy.ones(new DiceRoll(2,3,2,5,1)));
-        assertEquals(0, Yatzy.ones(new DiceRoll(3,3,3,4,5)));
-    }
-
-    @Test
-    public void twos() {
-        assertEquals(4, Yatzy.twos(new DiceRoll(1,2,3,2,6)));
-        assertEquals(10, Yatzy.twos(new DiceRoll(2,2,2,2,2)));
+    @Test public void ones() throws Exception {
+        assertEquals(2, new YatzyRoll(1,1,2,4,4).PlaceOn(Category.ONES).getScore());
+        assertEquals(1, new YatzyRoll(2,3,2,5,1).PlaceOn(Category.ONES).getScore());
+        assertEquals(0, new YatzyRoll(3,3,3,4,5).PlaceOn(Category.ONES).getScore());
     }
 
     @Test
-    public void test_threes() {
-        assertEquals(6, Yatzy.threes(new DiceRoll(1,2,3,2,3)));
-        assertEquals(12, Yatzy.threes(new DiceRoll(2,3,3,3,3)));
+    public void twos() throws Exception {
+        assertEquals(4, new YatzyRoll(1,2,3,2,6).PlaceOn(Category.TWOS).getScore());
+        assertEquals(10, new YatzyRoll(2,2,2,2,2).PlaceOn(Category.TWOS).getScore());
     }
 
     @Test
-    public void fours() 
+    public void test_threes() throws Exception {
+        assertEquals(6, new YatzyRoll(1,2,3,2,3).PlaceOn(Category.THREES).getScore());
+        assertEquals(12, new YatzyRoll(2,3,3,3,3).PlaceOn(Category.THREES).getScore());
+    }
+
+    @Test
+    public void fours() throws Exception {
+        assertEquals(0, new YatzyRoll(1,1,6,2,6).PlaceOn(Category.FOURS).getScore());
+        assertEquals(8, new YatzyRoll(1,1,2,4,4).PlaceOn(Category.FOURS).getScore());
+        assertEquals(4,  new YatzyRoll(4,5,5,5,5).PlaceOn(Category.FOURS).getScore());
+    }
+
+    @Test
+    public void fives() throws Exception {
+        assertEquals(0, new YatzyRoll(4,4,4,3,2).PlaceOn(Category.FIVES).getScore());
+        assertEquals(5, new YatzyRoll(4,4,5,1,3).PlaceOn(Category.FIVES).getScore());
+        assertEquals(20, new YatzyRoll(4,5,5,5,5).PlaceOn(Category.FIVES).getScore());
+    }
+
+    @Test
+    public void sixes() throws Exception {
+        assertEquals(0, new YatzyRoll(4,4,4,5,5).PlaceOn(Category.SIXES).getScore());
+        assertEquals(6, new YatzyRoll(4,4,6,5,5).PlaceOn(Category.SIXES).getScore());
+        assertEquals(18, new YatzyRoll(6,5,6,6,5).PlaceOn(Category.SIXES).getScore());
+    }
+
+    @Test
+    public void one_pair() throws Exception {
+        assertEquals(8, new YatzyRoll(3,3,3,4,4).PlaceOn(Category.PAIR).getScore());
+        assertEquals(12, new YatzyRoll(1,1,6,2,6).PlaceOn(Category.PAIR).getScore());
+        assertEquals(6, new YatzyRoll(3,3,3,4,1).PlaceOn(Category.PAIR).getScore());
+        assertEquals(6, new YatzyRoll(3,3,3,3,1).PlaceOn(Category.PAIR).getScore());
+    }
+
+    @Test
+    public void two_Pair() throws Exception {
+        assertEquals(8, new YatzyRoll(1,1,2,3,3).PlaceOn(Category.TWO_PAIRS).getScore());
+        assertEquals(0, new YatzyRoll(1,1,2,3,4).PlaceOn(Category.TWO_PAIRS).getScore());
+        assertEquals(6, new YatzyRoll(1,1,2,2,2).PlaceOn(Category.TWO_PAIRS).getScore());
+    }
+
+    @Test
+    public void three_of_a_kind() throws Exception 
     {
-        assertEquals(0, Yatzy.fours(new DiceRoll(1,1,6,2,6)));
-        assertEquals(8, Yatzy.fours(new DiceRoll(1,1,2,4,4 )));
-        assertEquals(4,  Yatzy.fours(new DiceRoll(4,5,5,5,5)));
+        assertEquals(9, new YatzyRoll(3,3,3,4,5).PlaceOn(Category.THREE_OF_A_KIND).getScore());
+        assertEquals(0, new YatzyRoll(3,3,4,5,6).PlaceOn(Category.THREE_OF_A_KIND).getScore());
+        assertEquals(9, new YatzyRoll(3,3,3,3,1).PlaceOn(Category.THREE_OF_A_KIND).getScore());
     }
 
     @Test
-    public void fives() {
-        assertEquals(0, Yatzy.fives(new DiceRoll(4,4,4,3,2)));
-        assertEquals(5, Yatzy.fives(new DiceRoll(4,4,5,1,3)));
-        assertEquals(20, Yatzy.fives(new DiceRoll(4,5,5,5,5)));
+    public void four_of_a_knd() throws Exception {
+        assertEquals(8, new YatzyRoll(2,2,2,2,5).PlaceOn(Category.FOUR_OF_A_KIND).getScore());
+        assertEquals(0, new YatzyRoll(2,2,2,5,5).PlaceOn(Category.FOUR_OF_A_KIND).getScore());
+        assertEquals(8, new YatzyRoll(2,2,2,2,2).PlaceOn(Category.FOUR_OF_A_KIND).getScore());
     }
 
     @Test
-    public void sixes() {
-        assertEquals(0, Yatzy.sixes(new DiceRoll(4,4,4,5,5)));
-        assertEquals(6, Yatzy.sixes(new DiceRoll(4,4,6,5,5)));
-        assertEquals(18, Yatzy.sixes(new DiceRoll(6,5,6,6,5)));
+    public void smallStraight() throws Exception {
+        assertEquals(15, new YatzyRoll(1,2,3,4,5).PlaceOn(Category.SMALL_STRAIGHT).getScore());
+        assertEquals(15, new YatzyRoll(2,3,4,5,1).PlaceOn(Category.SMALL_STRAIGHT).getScore());
+        assertEquals(0, new YatzyRoll(1,2,2,4,5).PlaceOn(Category.SMALL_STRAIGHT).getScore());
     }
 
     @Test
-    public void one_pair() {
-        assertEquals(8, Yatzy.score_pair(new DiceRoll(3,3,3,4,4)));
-        assertEquals(12, Yatzy.score_pair(new DiceRoll(1,1,6,2,6)));
-        assertEquals(6, Yatzy.score_pair(new DiceRoll(3,3,3,4,1)));
-        assertEquals(6, Yatzy.score_pair(new DiceRoll(3,3,3,3,1)));
+    public void largeStraight() throws Exception {
+    	assertEquals(20, new YatzyRoll(2,3,4,5,6).PlaceOn(Category.LARGE_STRAIGHT).getScore());
+    	assertEquals(20, new YatzyRoll(6,2,3,4,5).PlaceOn(Category.LARGE_STRAIGHT).getScore());
+        assertEquals(0, new YatzyRoll(1,2,2,4,5).PlaceOn(Category.LARGE_STRAIGHT).getScore());
     }
 
     @Test
-    public void two_Pair() {
-        assertEquals(8, Yatzy.two_pair(1,1,2,3,3));
-        assertEquals(0, Yatzy.two_pair(1,1,2,3,4 ));
-        assertEquals(6, Yatzy.two_pair(1,1,2,2,2));
-    }
-
-    @Test
-    public void three_of_a_kind() 
-    {
-        assertEquals(9, Yatzy.three_of_a_kind(new DiceRoll(3,3,3,4,5)));
-        assertEquals(0, Yatzy.three_of_a_kind(new DiceRoll(3,3,4,5,6)));
-        assertEquals(9, Yatzy.three_of_a_kind(new DiceRoll(3,3,3,3,1)));
-    }
-
-    @Test
-    public void four_of_a_knd() {
-        assertEquals(8, Yatzy.four_of_a_kind(new DiceRoll(2,2,2,2,5)));
-        assertEquals(0, Yatzy.four_of_a_kind(new DiceRoll(2,2,2,5,5)));
-        assertEquals(8, Yatzy.four_of_a_kind(new DiceRoll(2,2,2,2,2)));
-    }
-
-    @Test
-    public void smallStraight() {
-        assertEquals(15, Yatzy.smallStraight(new DiceRoll(1,2,3,4,5)));
-        assertEquals(15, Yatzy.smallStraight(new DiceRoll(2,3,4,5,1)));
-        assertEquals(0, Yatzy.smallStraight(new DiceRoll(1,2,2,4,5)));
-    }
-
-    @Test
-    public void largeStraight() {
-    	assertEquals(20, Yatzy.largeStraight(new DiceRoll(2,3,4,5,6)));
-    	assertEquals(20, Yatzy.largeStraight(new DiceRoll(6,2,3,4,5)));
-        assertEquals(0, Yatzy.largeStraight(new DiceRoll(1,2,2,4,5)));
-    }
-
-    @Test
-    public void fullHouse() {
-        assertEquals(8, Yatzy.fullHouse(new DiceRoll(1,1,2,2,2)));
-        assertEquals(0, Yatzy.fullHouse(new DiceRoll(2,2,3,3,4)));
-        assertEquals(0, Yatzy.fullHouse(new DiceRoll(4,4,4,4,4)));
+    public void fullHouse() throws Exception {
+        assertEquals(8, new YatzyRoll(1,1,2,2,2).PlaceOn(Category.FULL_HOUSE).getScore());
+        assertEquals(0, new YatzyRoll(2,2,3,3,4).PlaceOn(Category.FULL_HOUSE).getScore());
+        assertEquals(0, new YatzyRoll(4,4,4,4,4).PlaceOn(Category.FULL_HOUSE).getScore());
     }
 }
