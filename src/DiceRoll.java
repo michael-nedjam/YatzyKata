@@ -46,4 +46,13 @@ public class DiceRoll {
 			numberOfValue[value]++;
 		return numberOfValue;
 	}
+	
+	public boolean isAllDiceValueExistForRange(int fromValue, int toValue) {
+		int[] numberOfValue = listNumberOfValue(this.diceValue, this.numberDiceSide);
+		for(int value = fromValue; value <= toValue; value++) {
+			if(numberOfValue[value]==0) 
+				return false;
+		}
+		return true;
+	}
 }
