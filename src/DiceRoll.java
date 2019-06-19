@@ -1,27 +1,23 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DiceRoll {
+	private List<Integer> listDiceValue;
 	private int[] diceValue;
 	private int numberDiceSide = 6;
 	
 	public DiceRoll(int ... diceValue) {
+		this.listDiceValue = Arrays.stream(diceValue).boxed().collect(Collectors.toList());
 		this.diceValue = diceValue;
 	}	
 	
 	public int sumDiceValue() {
-		int sum = 0;
-		for (int dieValue : diceValue) {
-			sum+=dieValue;
-		}
-		return sum;
+		return this.listDiceValue.stream().mapToInt(Integer::intValue).sum();
 	}
 	
 	public int numberOf(int value) {
-		int number = 0;
-		for (int dieValue : diceValue) {
-			if(dieValue == value)
-				number++;
-		}
-		return number;
+		return (int) listDiceValue.stream().filter(i -> i == value).count();
 	}
 	
 	public Integer findHighestMatchingDice(int numberOfDice) {
