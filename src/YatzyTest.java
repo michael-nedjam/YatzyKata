@@ -5,29 +5,23 @@ public class YatzyTest {
 
     @Test
     public void chance_scores_sum_of_all_dice() {
-        int expected = 15;
-        int actual = Yatzy.chance(new DiceRoll(2,3,4,5,1));
-        assertEquals(expected, actual);
-        assertEquals(16, Yatzy.chance(new DiceRoll(3,3,4,5,1)));
+        assertEquals(14, Yatzy.chance(new DiceRoll(1,1,3,3,6)));
+        assertEquals(21, Yatzy.chance(new DiceRoll(4,5,5,6,1)));
     }
 
     @Test public void yatzy_scores_50() {
-        int expected = 50;
-        int actual = Yatzy.yatzy(new DiceRoll(4,4,4,4,4));
-        assertEquals(expected, actual);
-        assertEquals(50, Yatzy.yatzy(new DiceRoll(6,6,6,6,6)));
-        assertEquals(0, Yatzy.yatzy(new DiceRoll(6,6,6,6,3)));
+        assertEquals(50, Yatzy.yatzy(new DiceRoll(1,1,1,1,1)));
+        assertEquals(0, Yatzy.yatzy(new DiceRoll(1,1,1,2,1)));
     }
 
-    @Test public void test_1s() {
-        assertTrue(Yatzy.ones(new DiceRoll(1,2,3,4,5)) == 1);
-        assertEquals(2, Yatzy.ones(new DiceRoll(1,2,1,4,5)));
-        assertEquals(0, Yatzy.ones(new DiceRoll(6,2,2,4,5)));
-        assertEquals(4, Yatzy.ones(new DiceRoll(1,2,1,1,1)));
+    @Test public void ones() {
+        assertEquals(2, Yatzy.ones(new DiceRoll(1,1,2,4,4)));
+        assertEquals(1, Yatzy.ones(new DiceRoll(2,3,2,5,1)));
+        assertEquals(0, Yatzy.ones(new DiceRoll(3,3,3,4,5)));
     }
 
     @Test
-    public void test_2s() {
+    public void twos() {
         assertEquals(4, Yatzy.twos(new DiceRoll(1,2,3,2,6)));
         assertEquals(10, Yatzy.twos(new DiceRoll(2,2,2,2,2)));
     }
@@ -39,22 +33,22 @@ public class YatzyTest {
     }
 
     @Test
-    public void fours_test() 
+    public void fours() 
     {
-        assertEquals(12, Yatzy.fours(new DiceRoll(4,4,4,5,5)));
-        assertEquals(8, Yatzy.fours(new DiceRoll(4,4,5,5,5)));
+        assertEquals(0, Yatzy.fours(new DiceRoll(1,1,6,2,6)));
+        assertEquals(8, Yatzy.fours(new DiceRoll(1,1,2,4,4 )));
         assertEquals(4,  Yatzy.fours(new DiceRoll(4,5,5,5,5)));
     }
 
     @Test
     public void fives() {
-        assertEquals(10, Yatzy.fives(new DiceRoll(4,4,4,5,5)));
-        assertEquals(15, Yatzy.fives(new DiceRoll(4,4,5,5,5)));
+        assertEquals(0, Yatzy.fives(new DiceRoll(4,4,4,3,2)));
+        assertEquals(5, Yatzy.fives(new DiceRoll(4,4,5,1,3)));
         assertEquals(20, Yatzy.fives(new DiceRoll(4,5,5,5,5)));
     }
 
     @Test
-    public void sixes_test() {
+    public void sixes() {
         assertEquals(0, Yatzy.sixes(new DiceRoll(4,4,4,5,5)));
         assertEquals(6, Yatzy.sixes(new DiceRoll(4,4,6,5,5)));
         assertEquals(18, Yatzy.sixes(new DiceRoll(6,5,6,6,5)));
@@ -62,30 +56,32 @@ public class YatzyTest {
 
     @Test
     public void one_pair() {
-        assertEquals(6, Yatzy.score_pair(new DiceRoll(3,4,3,5,6)));
-        assertEquals(10, Yatzy.score_pair(new DiceRoll(5,3,3,3,5)));
-        assertEquals(12, Yatzy.score_pair(new DiceRoll(5,3,6,6,5)));
+        assertEquals(8, Yatzy.score_pair(new DiceRoll(3,3,3,4,4)));
+        assertEquals(12, Yatzy.score_pair(new DiceRoll(1,1,6,2,6)));
+        assertEquals(6, Yatzy.score_pair(new DiceRoll(3,3,3,4,1)));
+        assertEquals(6, Yatzy.score_pair(new DiceRoll(3,3,3,3,1)));
     }
 
     @Test
     public void two_Pair() {
-        assertEquals(16, Yatzy.two_pair(3,3,5,4,5));
-        assertEquals(16, Yatzy.two_pair(3,3,5,5,5));
+        assertEquals(8, Yatzy.two_pair(1,1,2,3,3));
+        assertEquals(0, Yatzy.two_pair(1,1,2,3,4 ));
+        assertEquals(6, Yatzy.two_pair(1,1,2,2,2));
     }
 
     @Test
     public void three_of_a_kind() 
     {
         assertEquals(9, Yatzy.three_of_a_kind(new DiceRoll(3,3,3,4,5)));
-        assertEquals(15, Yatzy.three_of_a_kind(new DiceRoll(5,3,5,4,5)));
-        assertEquals(9, Yatzy.three_of_a_kind(new DiceRoll(3,3,3,3,5)));
+        assertEquals(0, Yatzy.three_of_a_kind(new DiceRoll(3,3,4,5,6)));
+        assertEquals(9, Yatzy.three_of_a_kind(new DiceRoll(3,3,3,3,1)));
     }
 
     @Test
     public void four_of_a_knd() {
-        assertEquals(12, Yatzy.four_of_a_kind(new DiceRoll(3,3,3,3,5)));
-        assertEquals(20, Yatzy.four_of_a_kind(new DiceRoll(5,5,5,4,5)));
-        assertEquals(12, Yatzy.four_of_a_kind(new DiceRoll(3,3,3,3,3)));
+        assertEquals(8, Yatzy.four_of_a_kind(new DiceRoll(2,2,2,2,5)));
+        assertEquals(0, Yatzy.four_of_a_kind(new DiceRoll(2,2,2,5,5)));
+        assertEquals(8, Yatzy.four_of_a_kind(new DiceRoll(2,2,2,2,2)));
     }
 
     @Test
@@ -97,14 +93,15 @@ public class YatzyTest {
 
     @Test
     public void largeStraight() {
-        assertEquals(20, Yatzy.largeStraight(6,2,3,4,5));
-        assertEquals(20, Yatzy.largeStraight(2,3,4,5,6));
+    	assertEquals(20, Yatzy.largeStraight(2,3,4,5,6));
+    	assertEquals(20, Yatzy.largeStraight(6,2,3,4,5));
         assertEquals(0, Yatzy.largeStraight(1,2,2,4,5));
     }
 
     @Test
     public void fullHouse() {
-        assertEquals(18, Yatzy.fullHouse(6,2,2,2,6));
-        assertEquals(0, Yatzy.fullHouse(2,3,4,5,6));
+        assertEquals(8, Yatzy.fullHouse(1,1,2,2,2));
+        assertEquals(0, Yatzy.fullHouse(2,2,3,3,4));
+        assertEquals(0, Yatzy.fullHouse(4,4,4,4,4));
     }
 }
